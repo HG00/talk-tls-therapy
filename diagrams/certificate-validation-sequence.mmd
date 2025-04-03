@@ -1,0 +1,28 @@
+---
+title: "🔐 Certificate Validation - Trust Issues Therapy Session"
+---
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    participant RootCAStore as Trusted Root CA Store
+    participant OCSP as OCSP/CRL Server
+
+    Client->>Server: ClientHello
+    Server->>Client: ServerHello + Certificate Chain
+
+    Client->>RootCAStore: Validate Certificate Chain (Signatures, Expiry, SAN, Usage)
+    alt Revocation Check (Optional)
+        Client->>OCSP: Query OCSP or Download CRL
+        OCSP-->>Client: Revocation Status
+    end
+
+    alt All checks pass
+        Client->>Server: Continue TLS Handshake
+    else Any check fails
+        Client--XServer: Terminate Connection (Certificate Invalid)
+    end
+```
+
+> **What could possibly go wrong?** 🔥
