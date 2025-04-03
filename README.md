@@ -32,7 +32,7 @@ cd notebook
 jupyter notebook tls_certificates_debugging.ipynb
 ```
 
-2. Follow along the "Play Along at Home" exercises.
+2. Follow along with the "Play Along at Home" exercises.
 
 ### 🧙‍♂️ Try Advanced Labs
 Optional exercises to intentionally break TLS:
@@ -64,9 +64,6 @@ See: [`advanced-exercises/break-tls-lab.md`](advanced-exercises/break-tls-lab.md
 
 ---
 
-## 🙌 Credits
-
-Talk & materials by Hamish Gough.  
 Meme images and examples used for educational purposes.
 
 ---
