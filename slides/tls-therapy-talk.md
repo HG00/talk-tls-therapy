@@ -411,7 +411,7 @@ The client performs these steps:
 
 ---
 
-![](../diagrams/certcheck-sequence.png)
+![bg fit center](../diagrams/certcheck-sequence.png)
 
 ---
 
@@ -429,26 +429,7 @@ The client performs these steps:
 ---
 # Live Demo & Exercises
 
-<!-- Presenter Notes: Encourage the audience to follow along. Show how tools like curl and openssl help debug TLS issues. -->
-
-**Play along at home:**
-
-```bash
-# 🔍 View certificate
-openssl s_client -connect example.com:443
-
-# ⏰ Check expiry
-curl -v https://example.com
-
-# ❌ Test invalid cert
-curl -v https://expired.badssl.com
-```
-
----
-**Optional Advanced Exercises:**
-- Run your own test CA
-- Break the chain intentionally
-- Try debugging with `httpx` or Python
+<!-- Presenter Notes: Attached jupyter notebook - Encourage the audience to follow along. Show how tools like curl and openssl help debug TLS issues. -->
 
 ---
 
@@ -462,24 +443,6 @@ curl -v https://expired.badssl.com
 - 🔑 Weak signature algorithms (MD5, SHA1)
 - 🔄 Revoked certificates (rarely checked in practice)
 
----
-**Useful tools & methods:**
-
-```bash
-# See full certificate chain and handshake
-openssl s_client -connect example.com:443
-
-# ⏰ Check expiry quickly
-echo | openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -dates
-
-# Check with curl (shows certificate info in verbose mode)
-curl -v https://example.com
-
-# Python httpx for debugging TLS programmatically
-python -m httpx https://example.com --verify
-```
-
-<!-- Presenter Notes: This is your practical debugging toolbox. Encourage the audience to try these when things break. -->
 
 ---
 # Summary
@@ -492,7 +455,6 @@ python -m httpx https://example.com --verify
 ✅ Tools: `openssl`, `curl`, `httpx` help you debug  
 ✅ **What could possibly go wrong?**
 
-You now know more about TLS than 99% of developers. 🎯
 
 Thank you! 🎤
 
