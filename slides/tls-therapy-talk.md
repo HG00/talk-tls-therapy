@@ -31,14 +31,15 @@ Without TLS:
 TLS makes it safe to:
 
 ✅ Buy things online  
-✅ Log in to your bank  
+✅ Communicate securely over the internet  
 ✅ Deploy APIs securely
 
-So lets just add an s to the end and we're done, right?
+So lets just add an https and we're done, right?
 
 ---
+<!-- _color: white -->
 ![bg](../diagrams/notthatsimple.jpeg)
-
+# One does not simply type https
 ---
 # Lets start with certificates
 
@@ -52,6 +53,63 @@ Its a way to extend trust using a chain of maths
 
 ---
 
+# 🚧 Inside a Certificate: X.509 & ASN.1
+
+X.509 certs are structured data: **typed fields**, encoded with ASN.1.
+
+**🧱 X.509 is a schema**:
+
+- Subject & Issuer names
+- Serial number
+- Validity period
+- Public key info
+- Signature algorithm
+- Extensions (SAN, Key Usage, etc.)
+
+---
+
+**📦 ASN.1 is the encoding language**  
+- Stands for *Abstract Syntax Notation One*
+- Specifies how to serialize structured data  
+- Most certs use **DER** (binary) or PEM (Base64-wrapped DER)
+
+```text
+-----BEGIN CERTIFICATE-----
+MIID...
+-----END CERTIFICATE-----
+```
+
+<!-- _notes: presenter 
+
+    X.509 is like a schema—it says what fields a cert should have.
+
+    ASN.1 is a way of defining and encoding structured data. It's compact, binary, and type-annotated.
+
+    DER is the strict binary encoding; PEM is DER in Base64.
+
+    Tools like openssl and Wireshark decode the structure into readable text.
+
+    It feels arcane, but it’s very deterministic and machine-friendly.
+-->
+---
+
+# 🔍 PEM vs DER vs Decoded
+
+**🔐 PEM format (Base64-encoded DER)**  
+Easier to copy/paste, but still just encoded binary:
+
+```text
+-----BEGIN CERTIFICATE-----
+MIIDYDCCAkigAwIBAgIUFx...
+... lots of Base64 ...
+-----END CERTIFICATE-----
+```
+**🔐 PEM format (Base64-encoded DER)** 
+Not as easy to look at
+```
+30 82 04 a3 30 82 03 8b a0 03 02 01 02 ...
+```
+---
 # Public Key Encryption
 
 **Public Key Cryptography:**  
@@ -63,7 +121,7 @@ Allows two parties to communicate securely without sharing a secret beforehand.
 
 ---
 
-# RSA (Rivest-Shamir-Adleman)
+# Rivest-Shamir-Adleman (RSA)
 
 **RSA Key Exchange:**
 
@@ -110,7 +168,7 @@ Encourage the audience to look up "Shor's Algorithm" and "Post-Quantum Cryptogra
 **Shor's Algorithm**
 https://www.classiq.io/insights/shors-algorithm-explained
 
-_sounds like a "future me" problem_ 
+_sounds like a "future me" problem, lol_ 
 
 <!-- As far as we know, in 2025 there arent any computers that can do this yet, but there is a lot of work going on to make it happen -->
 ---
@@ -296,7 +354,7 @@ The session key is:
 
 🔑 A **symmetric encryption key**  
 🔄 **Derived during the handshake**  
-📅 **Valid only for this session**  
+📅 **Ephemeral: Valid only for this session**  
 🚀 **Used to encrypt & authenticate all application data**
 
 **Why use a Session Key?**
@@ -307,6 +365,7 @@ The session key is:
 
 <!-- Presenter Notes:
 Explain that the handshake is all about securely agreeing on a session key.
+Forward secrecy! If the session is recorded, even with the server key an attacker can't decrypt without the "Pre-Master secret (which is used to generate the master secret and session keys)
 Once the handshake finishes, all HTTPS traffic is encrypted using this symmetric session key.
 This is why TLS is both secure and efficient.
 -->
@@ -357,7 +416,7 @@ Remind them that next we're going to talk about how the server knows who you're 
 ---
 ![bg](../diagrams/notthatsimple.jpeg)
 <!-- _color: white -->
-
+# One does not simply guess which certificate to serve
 ---
 
 # Serving multiple sites - what cert?
@@ -433,16 +492,17 @@ The client performs these steps:
 
 ---
 
-# 🛠️ TLS Debugging Toolbox
+# 🛠️ A few tools and links
 
-**Common gotchas:**
-
-- 🕒 Expired certificates (very common!)
-- 🚫 Missing or broken intermediate CA in chain
-- 🔒 Wrong hostname in SAN/Common Name
-- 🔑 Weak signature algorithms (MD5, SHA1)
-- 🔄 Revoked certificates (rarely checked in practice)
-
+- Client testing
+    - https://www.howsmyssl.com/
+    - https://tls.support/
+- Server testing
+    - https://www.ssllabs.com/ssltest/
+    - https://testssl.sh/ (local tool)
+    - [curl](https://curl.se/docs/manpage.html)
+    - [openssl s_client](https://docs.openssl.org/3.0/man1/openssl-s_client/)
+- [Cert internal data structure](https://letsencrypt.org/docs/a-warm-welcome-to-asn1-and-der/)
 
 ---
 # Summary
@@ -455,6 +515,8 @@ The client performs these steps:
 ✅ Tools: `openssl`, `curl`, `httpx` help you debug  
 ✅ **What could possibly go wrong?**
 
+These resources are MIT licensed - PRs welcome
+https://github.com/HG00/talk-tls-therapy
 
 Thank you! 🎤
 
