@@ -170,7 +170,8 @@ https://www.classiq.io/insights/shors-algorithm-explained
 
 _sounds like a "future me" problem, lol_ 
 
-<!-- As far as we know, in 2025 there arent any computers that can do this yet, but there is a lot of work going on to make it happen -->
+<!-- As far as we know, in 2025 there arent any computers that can do this yet, but there is a lot of work going on to make it happen. 
+Lattice based problems are the new Hard Problem here - Learning With Errors and Shortest Vector Problem in huge lattices. -->
 ---
 
 # Post-Quantum Cryptography
