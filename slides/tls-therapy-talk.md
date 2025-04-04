@@ -125,7 +125,7 @@ Allows two parties to communicate securely without sharing a secret beforehand.
 
 **RSA Key Exchange:**
 
-- Based on the difficulty of **factoring large prime numbers**
+- Based on the difficulty of **Integer Factorisation**
 - Common key sizes: 2048, 3072, 4096 bits
 - Used in TLS for key exchange (rare today), signatures, encryption
 
