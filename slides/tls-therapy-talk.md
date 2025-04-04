@@ -93,6 +93,24 @@ MIID...
 -->
 ---
 
+### 📜 Is it a CA or a Leaf?
+Spot the difference:
+```text
+X509v3 Basic Constraints:
+    CA:TRUE
+
+X509v3 Key Usage:
+    Certificate Sign, CRL Sign
+```
+```text
+X509v3 Basic Constraints:
+    CA:FALSE
+
+X509v3 Key Usage:
+    Digital Signature, Key Encipherment
+```
+---
+
 # 🔍 PEM vs DER vs Decoded
 
 **🔐 PEM format (Base64-encoded DER)**  
@@ -504,6 +522,7 @@ The client performs these steps:
     - [curl](https://curl.se/docs/manpage.html)
     - [openssl s_client](https://docs.openssl.org/3.0/man1/openssl-s_client/)
 - [Cert internal data structure](https://letsencrypt.org/docs/a-warm-welcome-to-asn1-and-der/)
+- [ASN.1 for Dummies](https://coolaj86.com/articles/asn1-for-dummies/)
 
 ---
 # Summary
